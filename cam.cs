@@ -13,23 +13,26 @@ public class cam : MonoBehaviour {
     private float mid3y;
     private float mid4x;
     private float mid4y;
-    private int countOfPlayers = 0;
+    private int countOfPlayers = 4;
+    private float scaleX;
+    private float scaleY;
+
     void Start ()
     {
         foreach (Transform t in getArr())
         {
-            if (t != null) countOfPlayers++;
+            if (t == null) countOfPlayers--;
         }
+        scaleX = gameObject.transform.localScale.x;
+        scaleY = gameObject.transform.localScale.y;
     }
     void Update () {
-        //for (int i = 0; i < getArr().Length; i++)
-       // {
-      //      if (getArr()[i] == null) getArr()[i];
-     //   }
+       
 
 
-        switch (getArr().Length)
+        switch (countOfPlayers)
         {
+            
             case 1:
                 gameObject.transform.position = new Vector3(getArr()[0].position.x, getArr()[0].position.y, -10);
                 break;
@@ -51,6 +54,7 @@ public class cam : MonoBehaviour {
         }
 
 	}
+
     Transform[] getArr()
     {
         Transform[] arr = { player1, player2, player3, player4 };
@@ -61,4 +65,5 @@ public class cam : MonoBehaviour {
         //arr.Add(player4);
         return arr;
     }
+    
 }
