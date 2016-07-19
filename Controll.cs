@@ -3,7 +3,8 @@ using System.Collections;
 using System.Threading;
 
 
-public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛО ЗНИЩИТИ, ТРЕБА НАЗВАТИ ЙОГО hero */
+public class Controll : MonoBehaviour { 
+
     public KeyCode attack = KeyCode.Space;
     public KeyCode jump = KeyCode.W;
     public KeyCode pause = KeyCode.Escape;
