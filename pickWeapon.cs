@@ -17,8 +17,9 @@ public class pickWeapon : MonoBehaviour {
 
     void Update() {
 
-        if(Input.GetKeyDown(KeyCode.D))
+        if(Input.GetKeyDown(KeyCode.D)) {
             face = 1;
+        }
         else if(Input.GetKeyDown(KeyCode.A))
             face = -1;
     }
@@ -26,17 +27,13 @@ public class pickWeapon : MonoBehaviour {
     void OnTriggerStay2D(Collider2D c) {
 
         if(c.gameObject.tag == "pickable") {
-
             if(Input.GetKeyDown(pick) && !armed) {
-
                 pickItem(c);
             }
         } else if(Input.GetKeyDown(KeyCode.G) && armed) {
-
             gameObject.transform.DetachChildren();
             picked.GetComponent<Rigidbody2D>().simulated = true;
             armed = false;
-
             if(face == 1) {
                 picked.AddForce((new Vector2(1, 0)) * speed);
             } else if(face == -1) {

@@ -37,12 +37,12 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
     void FixedUpdate() {
 
         if(!stunned) {
-
             move = Input.GetAxis("Horizontal"); // записує у змінну данні вводу. якщо направо то = 1, наліво -1
-            if(move != 0)
+            if(move != 0) {
                 player.SetBool("run", true);
-            else
+            } else {
                 player.SetBool("run", false);
+            }
             GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y); // сила руху
         }
     }
@@ -50,31 +50,32 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
     void Update() {
 
         checkHealth();
-        if(stunned)
+        if(stunned) {
             player.SetBool("stun", true);
-        if(Input.GetKey(attack))
+        }
+        if(Input.GetKey(attack)) {
             forUnstun++;
+        }
         if(forUnstun == 100) {
-
             stunned = false;
             forUnstun = 0;
         } else if(!stunned)
             player.SetBool("stun", false);
-        if(move > 0 && !facingRight)
+        if(move > 0 && !facingRight) {
             Flip();
-        else if(move < 0 && facingRight)
+        } else if(move < 0 && facingRight) {
             Flip();
+        }
         if(Input.GetKeyDown(KeyCode.Space) && !stunned) { // якщо нажати пробіл і не під станом то йде постріл
-
             player.SetBool("attack", true);
             shoot();
-        } else if(Input.GetKeyUp(attack))
+        } else if(Input.GetKeyUp(attack)) {
             player.SetBool("attack", false);
+        }
     }
 
     void Flip() {
         if(projectAxis == ProjectAxis.onlyX) {
-
             facingRight = !facingRight;
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
@@ -85,9 +86,7 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
     void OnCollisionStay2D(Collision2D c) { // фізичне тіло
 
         if(c.gameObject && !stunned && c.gameObject.tag != "dontJump") { // якщо торкаєшся будь-який об'єкт з колайдером то можна стрибати 
-
             if(Input.GetKey(jump) && !stunned) {
-
                 GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
                 player.SetBool("jump", true);
             }
@@ -102,11 +101,9 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
     void OnCollisionEnter2D(Collision2D c) {
 
         if(c.gameObject && !stunned && c.gameObject.tag != "dontJump") {
-
             player.SetBool("jump", false);
         }
         if(c.gameObject.tag == "damageObj") { // якщо встаєш на пилу то урон
-
             //healthPoint -= 1;
             damage();
         }
@@ -115,21 +112,17 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
     void OnTriggerStay2D(Collider2D c2d) { // не фізичне тіло
 
         if(c2d.gameObject.tag == "hp" && healthPoint < 5f) { // якщо наступаєш на трігер з ім'ям hp і при цьому не більше 9 хп то додається 2 хп
-
             Destroy(c2d.gameObject);
             healthPoint += 2;
         } else if(c2d.gameObject.tag == "hp" && healthPoint == 5f) { // якщо поперднє але 9 хп то додається 1 хп
-
             Destroy(c2d.gameObject);
             healthPoint++;
         }
         if(c2d.gameObject.name == "coll") {
-
             //	respawn ();
             die();
         }
         if(c2d.gameObject.tag == "hit") {
-
             die();
         }
     }
@@ -155,7 +148,6 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
     void damage() { // урон
 
         if(healthPoint <= 6f && healthPoint > 0f) { // якщо не більше 10 хп і більше 0, то при уроні знімається 1 хп
-
             healthPoint -= 1;
         }
     }
@@ -163,11 +155,9 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
     void shoot() { // постріл
 
         if(facingRight && !stunned) { // якщо не під станом то стріляєш у сторону куда дивишся
-
             Rigidbody2D clone = Instantiate(rightBullet, spawn.position, Quaternion.identity) as Rigidbody2D;
             clone.AddForce(new Vector2(speed, 0f));
         } else if(!facingRight && !stunned) {
-
             //	magicLeft.Play;
             Rigidbody2D clone = Instantiate(leftBullet, spawn.position, Quaternion.identity) as Rigidbody2D;
             clone.AddForce(new Vector2(-speed + 1, 0f));

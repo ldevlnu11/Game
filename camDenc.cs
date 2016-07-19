@@ -7,8 +7,7 @@ public class camDenc : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D c) {
 
-        if (c.gameObject.tag == "hero") {
-
+        if(c.gameObject.tag == "hero") {
             camera.orthographicSize -= 0.05f;
         }
     }
