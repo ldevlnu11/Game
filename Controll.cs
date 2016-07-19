@@ -25,7 +25,6 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
     private Animator player;
 
     void Start() {
-
         player = GetComponent<Animator>();
         healthPoint = 6;
         manaPoint = 3;
@@ -35,7 +34,6 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
     }
 
     void FixedUpdate() {
-
         if(!stunned) {
             move = Input.GetAxis("Horizontal"); // записує у змінну данні вводу. якщо направо то = 1, наліво -1
             if(move != 0) {
@@ -48,7 +46,6 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
     }
 
     void Update() {
-
         checkHealth();
         if(stunned) {
             player.SetBool("stun", true);
@@ -84,7 +81,6 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
     }
 
     void OnCollisionStay2D(Collision2D c) { // фізичне тіло
-
         if(c.gameObject && !stunned && c.gameObject.tag != "dontJump") { // якщо торкаєшся будь-який об'єкт з колайдером то можна стрибати 
             if(Input.GetKey(jump) && !stunned) {
                 GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
@@ -92,14 +88,12 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
             }
         }
         if(c.gameObject.tag == "hit") { // якщо тіла торкається об'єкт з назвою fireball(Clone) то урон
-
             damage();
             Destroy(c.gameObject);
         }
     }
 
     void OnCollisionEnter2D(Collision2D c) {
-
         if(c.gameObject && !stunned && c.gameObject.tag != "dontJump") {
             player.SetBool("jump", false);
         }
@@ -110,7 +104,6 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
     }
 
     void OnTriggerStay2D(Collider2D c2d) { // не фізичне тіло
-
         if(c2d.gameObject.tag == "hp" && healthPoint < 5f) { // якщо наступаєш на трігер з ім'ям hp і при цьому не більше 9 хп то додається 2 хп
             Destroy(c2d.gameObject);
             healthPoint += 2;
@@ -128,7 +121,6 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
     }
 
     void respawn() { // респаун
-
         player.SetBool("dead", false);
         stunned = false;
         transform.position = new Vector2(spawnX, spawnY); // точка респауну(в цьому випадку точка спауну)
@@ -137,7 +129,6 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
     }
 
     void die() { // смерть
-
         healthPoint = 0;
         manaPoint = 0;
         player.SetBool("dead", true);
@@ -146,14 +137,12 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
     }
 
     void damage() { // урон
-
         if(healthPoint <= 6f && healthPoint > 0f) { // якщо не більше 10 хп і більше 0, то при уроні знімається 1 хп
             healthPoint -= 1;
         }
     }
 
     void shoot() { // постріл
-
         if(facingRight && !stunned) { // якщо не під станом то стріляєш у сторону куда дивишся
             Rigidbody2D clone = Instantiate(rightBullet, spawn.position, Quaternion.identity) as Rigidbody2D;
             clone.AddForce(new Vector2(speed, 0f));
@@ -164,17 +153,14 @@ public class Controll : MonoBehaviour { /** ЩОБ ОБ'ЄКТ МОЖНА БУЛ
         }
     }
     IEnumerator delay(int s) {
-
         yield return new WaitForSeconds(s);
     }
     void OnGUI() {
-
         GUI.Box(new Rect(0, 0, 100, 20), "HP: " + healthPoint); // хп на інтерфейсі
         GUI.Box(new Rect(0, 20, 100, 20), "MP: " + manaPoint); // мана на інтерфейсі
     }
 
     void checkHealth() {
-
         if(healthPoint == 0 && !stunned || stunned) {
             die(); //якщо 0 хп то смерть
         }

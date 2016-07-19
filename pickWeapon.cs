@@ -11,12 +11,10 @@ public class pickWeapon : MonoBehaviour {
     private short face;
 
     void Start() {
-
         armed = false;
     }
 
     void Update() {
-
         if(Input.GetKeyDown(KeyCode.D)) {
             face = 1;
         }
@@ -25,7 +23,6 @@ public class pickWeapon : MonoBehaviour {
     }
 
     void OnTriggerStay2D(Collider2D c) {
-
         if(c.gameObject.tag == "pickable") {
             if(Input.GetKeyDown(pick) && !armed) {
                 pickItem(c);
@@ -44,7 +41,6 @@ public class pickWeapon : MonoBehaviour {
     }
 
     void pickItem(Collider2D c) {
-
         c.gameObject.transform.GetComponent<Transform>().rotation = new Quaternion(0, 0, 0, 0);
         c.gameObject.transform.position = gameObject.transform.position;
         c.gameObject.transform.SetParent(gameObject.transform);

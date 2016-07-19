@@ -4,7 +4,6 @@ using System.Collections;
 public class hit : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D c2d) {
-
         if(c2d.gameObject && c2d.gameObject.tag != "hero") {
             Destroy(gameObject);
         }
@@ -13,8 +12,7 @@ public class hit : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter2D(Collider2D c2d) {
-
+    void OnTriggerEnter2D(Collider2D c2d) { 
         if(c2d.gameObject.name == "coll")
             Destroy(gameObject);
     }

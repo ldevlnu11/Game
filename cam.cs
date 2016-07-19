@@ -18,19 +18,16 @@ public class cam : MonoBehaviour {
     private int countOfPlayers = 4;
 
     void Start() {
-
         foreach(Transform t in getArr()) {
-
             if(t == null)
                 countOfPlayers--;
         }
         scaleX = gameObject.transform.localScale.x;
         scaleY = gameObject.transform.localScale.y;
     }
+
     void Update() {
-
         switch(countOfPlayers) {
-
             case 1:
                 gameObject.transform.position = new Vector3(getArr()[0].position.x, getArr()[0].position.y, -10);
                 break;
@@ -53,7 +50,6 @@ public class cam : MonoBehaviour {
     }
 
     Transform[] getArr() {
-
         Transform[] arr = { player1, player2, player3, player4 };
         //ArrayList arr = new ArrayList();
         //arr.Add(player1);
