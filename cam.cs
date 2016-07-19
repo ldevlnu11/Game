@@ -3,6 +3,7 @@ using System.Collections;
 
 public class cam : MonoBehaviour {
 
+    public Camera camera;
     public Transform player1;
     public Transform player2;
     public Transform player3;
@@ -16,6 +17,7 @@ public class cam : MonoBehaviour {
     private float scaleX;
     private float scaleY;
     private int countOfPlayers = 4;
+    
 
     void Start() {
         foreach(Transform t in getArr()) {
@@ -57,5 +59,11 @@ public class cam : MonoBehaviour {
         //arr.Add(player3);
         //arr.Add(player4);
         return arr;
+    }
+
+    void OnTriggerStay2D(Collider2D c) {
+        while(c.gameObject.tag != "hero") {
+            camera.orthographicSize += 0.2f;
+        } 
     }
 }
